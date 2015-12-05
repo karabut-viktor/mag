@@ -4,6 +4,7 @@ import japa.parser.ast.body.MethodDeclaration;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,10 @@ public class App {
 		else {
 			System.out.println(String.format("Methods %s and %s similarity: %.3f", m1.getName(), m2.getName(), m1.similarity(m2)));
 		}
+		for (Iterator iterator = collection.iterator(); iterator.hasNext();) {
+	    type type = (type) iterator.next();
+	    
+    }
 		System.out.println();
 		System.out.println(m1);
 		System.out.println();
