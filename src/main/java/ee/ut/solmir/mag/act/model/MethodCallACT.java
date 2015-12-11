@@ -42,7 +42,10 @@ public class MethodCallACT extends ExprACT {
 	
 	@Override
 	protected void prettyString(StringBuilder sb, int intentLevel) {
-	  sb.append(object).append(".").append(name).append("(");
+		if (object != null) {
+			sb.append(object).append(".");
+		}
+	  sb.append(name).append("(");
 	  for (int i = 0; i < args.size(); i++) {
 	    if (i != 0) {
 	    	sb.append(", ");

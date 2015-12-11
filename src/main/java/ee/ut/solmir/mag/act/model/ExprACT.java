@@ -7,5 +7,4 @@ public abstract class ExprACT extends ACT {
 	public ExprACT(Node astNode) {
 	  super(astNode);
   }
-
 }
