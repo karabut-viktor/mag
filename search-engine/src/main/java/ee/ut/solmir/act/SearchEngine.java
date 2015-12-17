@@ -11,6 +11,7 @@ import java.util.List;
 
 import ee.ut.solmir.act.factory.ACTFactory;
 import ee.ut.solmir.act.model.MethodACT;
+import japa.parser.ParseException;
 import japa.parser.ast.body.MethodDeclaration;
 
 public class SearchEngine {
@@ -42,14 +43,22 @@ public class SearchEngine {
       return String.format("[m1=%s, m2=%s, sim=%f]", m1, m2, similarity);
     }
   }
+
+  private static final double THRESHOLD = 0.1;
   
   private final List<MethodACT> database = new ArrayList<>();
   
   public SearchEngine() {
-    parseResource("/samples/StringUtils.java");
+    try {
+      parseResource("/samples/StringUtils.java");
+    }
+    catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
   
-  private void parseResource(String res) {
+  private void parseResource(String res) throws ParseException {
     try (InputStream is = this.getClass().getResourceAsStream(res)) {
       for (MethodDeclaration md : ParserUtils.parseMethods(is)) {
         database.add(ACTFactory.INSTANCE.createACT(md));
@@ -61,7 +70,7 @@ public class SearchEngine {
     }
   }
   
-  public List<SimHolder> findMostSimilarMethod(String codeSnippet) {
+  public List<SimHolder> findMostSimilarMethod(String codeSnippet) throws ParseException {
     try {
       codeSnippet = "public class TestClass { public void testMethod() { " + codeSnippet  + " }  }";
       InputStream in;
@@ -72,6 +81,9 @@ public class SearchEngine {
       }
       return findMostSimilarMethdos(method);
     }
+    catch (ParseException pe) {
+      throw pe;
+    }
     catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -80,10 +92,16 @@ public class SearchEngine {
   }
   
   private List<SimHolder> findMostSimilarMethdos(MethodACT method) throws FileNotFoundException, IOException {
+    if (method == null) {
+      return Collections.emptyList();
+    }
+    
     List<SimHolder> holders = new ArrayList<SimHolder>();
     for (MethodACT dbMethod : database) {
         double sim = method.similarity(dbMethod);
-        holders.add(new SimHolder(method, dbMethod, sim));
+        if (sim > THRESHOLD) {
+          holders.add(new SimHolder(method, dbMethod, sim));
+        }
     }
     
     Collections.sort(holders, new Comparator<SimHolder>() {
@@ -98,6 +116,6 @@ public class SearchEngine {
       result.add(holder);
     }
     
-    return holders;
+    return result;
   }
 }

@@ -57,21 +57,15 @@ public final class ParserUtils {
     }
   }
 
-  public static List<MethodDeclaration> parseMethods(File javaSource) throws FileNotFoundException, IOException {
+  public static List<MethodDeclaration> parseMethods(File javaSource) throws FileNotFoundException, IOException, ParseException {
     try (FileInputStream fin = new FileInputStream(javaSource)) {
       return parseMethods(fin);
     }
   }
   
-  public static List<MethodDeclaration> parseMethods(InputStream in) {
+  public static List<MethodDeclaration> parseMethods(InputStream in) throws ParseException {
     CompilationUnit cu;
-    try {
-      cu = JavaParser.parse(in);
-    }
-    catch (ParseException e) {
-      e.printStackTrace();
-      return Collections.emptyList();
-    }
+    cu = JavaParser.parse(in);
     ClassOrInterfaceDeclaration classOrInterface = null;
     for (Node node : cu.getChildrenNodes()) {
       if (node instanceof ClassOrInterfaceDeclaration) {

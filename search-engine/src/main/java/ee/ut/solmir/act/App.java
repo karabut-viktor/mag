@@ -60,7 +60,7 @@ public class App {
     // compare2Methods("test_samples/VariableExtract.java", "a", "b");
   }
 
-  private static void mostSimilarMethdos(String fileName) throws FileNotFoundException, IOException {
+  private static void mostSimilarMethdos(String fileName) throws Exception {
     List<MethodACT> methods = new ArrayList<MethodACT>();
     for (MethodDeclaration md : ParserUtils.parseMethods(new File(fileName))) {
       methods.add(ACTFactory.INSTANCE.createACT(md));
@@ -106,7 +106,7 @@ public class App {
     System.out.println(m2);
   }
 
-  private static void findSameHashCode(String fileName) throws FileNotFoundException, IOException {
+  private static void findSameHashCode(String fileName) throws Exception {
     List<MethodACT> methods = new ArrayList<MethodACT>();
     for (MethodDeclaration md : ParserUtils.parseMethods(new File(fileName))) {
       methods.add(ACTFactory.INSTANCE.createACT(md));
