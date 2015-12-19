@@ -10,7 +10,7 @@
 
   <artifactId>model</artifactId>
   <packaging>jar</packaging>
-  
+
   <name>ACT Model</name>
 
   <properties>
@@ -18,6 +18,10 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
