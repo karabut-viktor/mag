@@ -35,8 +35,10 @@ class AbstractACT implements ACT {
     return (T) map.remove(key.getId());
   }
   
-  private void checkNull(Object o, String name) {
-    
+  final protected void assertNotNull(Object o, String name) throws IllegalArgumentException {
+    if (o == null) {
+      throw new IllegalArgumentException(String.format("Argument %s cannot be null.", name));
+    }
   }
   
 }

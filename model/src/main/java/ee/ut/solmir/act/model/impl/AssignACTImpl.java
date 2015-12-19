@@ -1,7 +1,5 @@
 package ee.ut.solmir.act.model.impl;
 
-import javax.validation.constraints.NotNull;
-
 import ee.ut.solmir.act.model.AssignACT;
 import ee.ut.solmir.act.model.ExprACT;
 
@@ -9,7 +7,10 @@ public class AssignACTImpl extends AbstractACT implements AssignACT {
   private final ExprACT rValue;
   private final ExprACT lValue;
   
-  public AssignACTImpl(@NotNull ExprACT rValue, @NotNull ExprACT lValue) {
+  public AssignACTImpl(ExprACT rValue, ExprACT lValue) {
+    assertNotNull(lValue, "lValue");
+    assertNotNull(rValue, "rValue");
+    
     this.rValue = rValue;
     this.lValue = lValue;
   }
@@ -28,8 +29,8 @@ public class AssignACTImpl extends AbstractACT implements AssignACT {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((lValue == null) ? 0 : lValue.hashCode());
-    result = prime * result + ((rValue == null) ? 0 : rValue.hashCode());
+    result = prime * result + lValue.hashCode();
+    result = prime * result + rValue.hashCode();
     return result;
   }
 
@@ -41,19 +42,13 @@ public class AssignACTImpl extends AbstractACT implements AssignACT {
       return false;
     if (!(obj instanceof AssignACTImpl))
       return false;
+    
     AssignACTImpl other = (AssignACTImpl) obj;
-    if (lValue == null) {
-      if (other.lValue != null)
-        return false;
-    }
-    else if (!lValue.equals(other.lValue))
+    if (!lValue.equals(other.lValue))
       return false;
-    if (rValue == null) {
-      if (other.rValue != null)
-        return false;
-    }
-    else if (!rValue.equals(other.rValue))
+    if (!rValue.equals(other.rValue))
       return false;
+    
     return true;
   }
 }
