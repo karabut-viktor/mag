@@ -41,4 +41,13 @@ class AbstractACT implements ACT {
     }
   }
   
+  final protected void assertAllNotNull(Iterable<? extends Object> os, String name) {
+    assertNotNull(os, name);
+    for (Object o : os) {
+      if (o == null) {
+        throw new IllegalArgumentException(String.format("Iterable %s contains null element.", name));
+      }
+    }
+  }
+  
 }

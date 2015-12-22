@@ -40,7 +40,7 @@ public class AssignACTImpl extends AbstractACT implements AssignACT {
       return true;
     if (obj == null)
       return false;
-    if (!(obj instanceof AssignACTImpl))
+    if (getClass() != obj.getClass())
       return false;
     
     AssignACTImpl other = (AssignACTImpl) obj;

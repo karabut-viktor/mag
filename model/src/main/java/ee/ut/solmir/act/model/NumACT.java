@@ -1,5 +1,5 @@
 package ee.ut.solmir.act.model;
 
-public interface NumAct extends ExprACT {
+public interface NumACT extends ExprACT {
   double getValue();
 }

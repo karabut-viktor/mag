@@ -9,9 +9,9 @@
   <name>Similar Code Search Engine Parent Project</name>
 
   <modules>
+    <module>model</module>
     <module>search-engine</module>
     <module>web</module>
-    <module>model</module>
   </modules>
 
   <properties>
